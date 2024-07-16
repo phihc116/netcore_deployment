@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "5z3v6g3n6nB4eR4OlJHhRPaWJcMbyJARJuLl/s9EWlI=",
+  "Source": "NewsfeedAPI",
+  "BasePath": "_content/NewsfeedAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

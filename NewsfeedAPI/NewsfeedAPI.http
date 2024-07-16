@@ -1,0 +1,6 @@
+@NewsfeedAPI_HostAddress = http://localhost:5262
+
+GET {{NewsfeedAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

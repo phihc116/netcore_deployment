@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  newsfeedapi:
+    image: ${DOCKER_REGISTRY-}newsfeedapi
+    build:
+      context: .
+      dockerfile: NewsfeedAPI/Dockerfile
+    networks:
+        - app
+
+  platformapi:
+    image: ${DOCKER_REGISTRY-}platformapi
+    build:
+      context: .
+      dockerfile: PlatformAPI/Dockerfile
+    networks:
+        - app
+networks:
+  app:
+    

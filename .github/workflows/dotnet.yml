@@ -37,4 +37,4 @@ jobs:
         context: .
         file: NewsfeedAPI/Dockerfile
         push: true
-        tags: hoangphi076/test-github-action/newsfeed-api:a.0.0.1
+        tags: hoangphi076/test-github-action:a.0.0.1

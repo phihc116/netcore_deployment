@@ -7,8 +7,37 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  Build_Newsfeed_API:
+      runs-on: ubuntu-latest
 
+      steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.4.0
+
+      - name: Login to Docker Hub Registry
+        uses: docker/login-action@v3.2.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Print Docker Username Secret
+        run: echo ${{ secrets.DOCKER_USERNAME }}
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v6.4.0
+        with:
+          context: .
+          file: NewsfeedAPI/Dockerfile
+          push: true
+          tags: hoangphi076/newsfeed-api:a.0.0.1
+  Build_Platform_API:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,6 +64,6 @@ jobs:
       uses: docker/build-push-action@v6.4.0
       with:
         context: .
-        file: NewsfeedAPI/Dockerfile
+        file: Platform/Dockerfile
         push: true
-        tags: hoangphi076/newsfeed-api:a.0.0.1
+        tags: hoangphi076/platform-api:a.0.0.1

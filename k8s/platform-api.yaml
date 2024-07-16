@@ -16,8 +16,8 @@ spec:
         image: localhost:5000/platform-api:latest
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: "32Mi"
+            cpu: "64m"
         ports:
         - containerPort: 8080
 

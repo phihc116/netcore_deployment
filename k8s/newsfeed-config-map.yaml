@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: newsfeed-development-config
+data:
+  appsettings.Development.json: |
+    {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft.AspNetCore": "Warning"
+        }
+      },
+      "TestConfig": "Map from config map",
+      "TestEnv":  "Map from config map"
+    }
+

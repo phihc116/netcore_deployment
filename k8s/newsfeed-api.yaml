@@ -13,10 +13,23 @@ spec:
     spec:
       containers:
       - name: newsfeed-api
-        image: localhost:5000/newsfeed-api:latest
+        image: localhost:5000/newsfeed-api:16072024
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: "32Mi"
+            cpu: "64m"
         ports:
         - containerPort: 8080
+        env:
+        - name: TestEnv
+          value: "Test Env"
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/appsettings.Development.json
+          subPath: appsettings.Development.json
+      volumes:
+      - name: config-volume
+        configMap:
+          name: newsfeed-development-config

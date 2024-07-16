@@ -64,6 +64,6 @@ jobs:
       uses: docker/build-push-action@v6.4.0
       with:
         context: .
-        file: Platform/Dockerfile
+        file: PlatformAPI/Dockerfile
         push: true
         tags: hoangphi076/platform-api:a.0.0.1

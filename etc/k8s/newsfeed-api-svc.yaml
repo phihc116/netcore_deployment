@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: newsfeed-api-svc
+  namespace: app-demo
+spec:
+  selector:
+    app: newsfeed-api
+  ports:
+  - port: 8080
+    targetPort: 8080

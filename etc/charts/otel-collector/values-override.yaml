@@ -1,0 +1,73 @@
+mode: "deployment"
+namespaceOverride: "otel-demo"
+
+config:
+  exporters:
+    debug: {}
+    prometheus:
+      endpoint: "0.0.0.0:9201"
+  extensions:
+    health_check:
+      endpoint: ${env:MY_POD_IP}:13133
+  processors:
+    batch: {}
+    memory_limiter:
+      check_interval: 5s
+      limit_percentage: 80
+      spike_limit_percentage: 25
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: ${env:MY_POD_IP}:4317
+        http:
+          endpoint: ${env:MY_POD_IP}:4318
+  service:
+    extensions:
+    - health_check
+    pipelines:
+      logs:
+        exporters:
+        - debug
+        processors:
+        - memory_limiter
+        - batch
+        receivers:
+        - otlp
+      metrics:
+        exporters:
+        - debug
+        - prometheus
+        processors:
+        - memory_limiter
+        - batch
+        receivers:
+        - otlp
+      traces:
+        exporters:
+        - debug
+        processors:
+        - memory_limiter
+        - batch
+        receivers:
+        - otlp
+
+image:
+  repository: "otel/opentelemetry-collector"
+
+command:
+  name: "otelcol"
+  extraArgs: []
+
+ports:
+  prometheus:
+    enabled: true
+    containerPort: 9201
+    servicePort: 9201
+    hostPort: 9201
+    protocol: TCP
+
+resources:
+  limits:
+    cpu: 250m
+    memory: 512Mi

@@ -1,0 +1,65 @@
+services:
+
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    command: ["--config=/etc/otel-collector.yaml"]
+    volumes:
+    - ./otel-collector.yaml:/etc/otel-collector.yaml
+    ports:
+    - "4317:4317"
+    - "4318:4318"
+    - "9201:9201"
+
+  prometheus:
+    image: prom/prometheus:latest
+    command:
+    - --config.file=/etc/prometheus.yaml
+    - --web.enable-remote-write-receiver
+    - --enable-feature=exemplar-storage
+    volumes:
+    - ./prometheus.yaml:/etc/prometheus.yaml
+    ports:
+    - "9090:9090"
+  
+  loki:
+    image: grafana/loki:3.0.0
+    command:
+    - --config.file=/etc/loki.yaml
+    volumes:
+    - ./loki.yaml:/etc/loki.yaml
+    ports:
+      - "3100:3100"
+
+  tempo:
+    image: grafana/tempo:latest
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml
+      - ./tempo-data:/tmp/tempo
+    ports:
+      - "3200:3200"  
+      - "4317"   
+      - "4318"   
+    
+  grafana:
+    image: grafana/grafana
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor
+    ports:
+      - "3000:3000"
+
+  # business-api:
+  #   build:
+  #     context: ./../
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_HTTP_PORTS=80
+  #     - OTEL_EXPORTER_OTLP_LOGS_ENDPOINT="http://otel-collector/v1/logs"
+  #     # - ASPNETCORE_HTTPS_PORTS=443
+  #   ports:
+  #     - "56678:80"
+  #     # - "443"

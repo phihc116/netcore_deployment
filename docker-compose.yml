@@ -1,19 +1,21 @@
-version: '3.4'
-
 services:
   newsfeedapi:
-    image: ${DOCKER_REGISTRY-}newsfeedapi
+    image: localhost:5000/newsfeed-api
     build:
       context: .
-      dockerfile: NewsfeedAPI/Dockerfile
+      dockerfile: src/NewsfeedAPI/Dockerfile
+    environment:
+       - OTEL_SERVICE_LINK=http://opentelemetry-collector.otel-demo.svc.cluster.local
     networks:
         - app
 
   platformapi:
-    image: ${DOCKER_REGISTRY-}platformapi
+    image: localhost:5000/platform-api
     build:
       context: .
-      dockerfile: PlatformAPI/Dockerfile
+      dockerfile: src/PlatformAPI/Dockerfile
+    environment:
+       - OTEL_SERVICE_LINK=http://opentelemetry-collector.otel-demo.svc.cluster.local
     networks:
         - app
 networks:

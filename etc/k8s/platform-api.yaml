@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: platform-api
+  namespace: app-demo
+spec:
+  selector:
+    matchLabels:
+      app: platform-api
+  template:
+    metadata:
+      labels:
+        app: platform-api
+    spec:
+      containers:
+      - name: platform-api
+        image: localhost:5000/platform-api:latest
+        resources:
+          limits:
+            memory: "32Mi"
+            cpu: "64m"
+        ports:
+        - containerPort: 8080
+

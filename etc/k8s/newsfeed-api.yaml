@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newsfeed-api
+  namespace: app-demo
+  labels:
+    app.kubernetes.io/component: newsfeed-api
+spec:
+  selector:
+    matchLabels:
+      app: newsfeed-api
+  template:
+    metadata:
+      labels:
+        app: newsfeed-api
+    spec:
+      containers:
+      - name: newsfeed-api
+        image: localhost:5000/newsfeed-api:01082024
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "512m"
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TestEnv
+          value: "Test Env"
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: OTEL_SERVICE_LINK
+          value: http://opentelemetry-collector.otel-demo.svc.cluster.local
+        - name: OTEL_SERVICE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels['app.kubernetes.io/component']
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: service.namespace=otel-demo,service.version=1.1.0
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/appsettings.Development.json
+          subPath: appsettings.Development.json
+      volumes:
+      - name: config-volume
+        configMap:
+          name: newsfeed-development-config

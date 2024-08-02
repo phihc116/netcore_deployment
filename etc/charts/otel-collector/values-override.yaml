@@ -6,6 +6,12 @@ config:
     debug: {}
     prometheus:
       endpoint: "0.0.0.0:9201"
+    otlphttp:
+      endpoint: http://loki-gateway.otel-demo.svc.cluster.local/otlp/
+    otlp:
+      endpoint: tempo:4317
+      tls:
+        insecure: true
   extensions:
     health_check:
       endpoint: ${env:MY_POD_IP}:13133
@@ -29,6 +35,7 @@ config:
       logs:
         exporters:
         - debug
+        - otlphttp
         processors:
         - memory_limiter
         - batch
@@ -46,6 +53,7 @@ config:
       traces:
         exporters:
         - debug
+        - otlp
         processors:
         - memory_limiter
         - batch

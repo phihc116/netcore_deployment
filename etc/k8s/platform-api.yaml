@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: platform-api
   namespace: app-demo
+  labels:
+    app.kubernetes.io/component: platform-api
 spec:
   selector:
     matchLabels:
@@ -14,11 +16,25 @@ spec:
     spec:
       containers:
       - name: platform-api
-        image: localhost:5000/platform-api:latest
+        image: localhost:5000/platform-api:02082024
         resources:
           limits:
-            memory: "32Mi"
-            cpu: "64m"
+            memory: "512Mi"
+            cpu: "512m"
         ports:
         - containerPort: 8080
+        env:
+        - name: TestEnv
+          value: "Test Env"
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: OTEL_SERVICE_LINK
+          value: http://opentelemetry-collector.otel-demo.svc.cluster.local
+        - name: OTEL_SERVICE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels['app.kubernetes.io/component']
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: service.namespace=otel-demo,service.version=1.1.0
 

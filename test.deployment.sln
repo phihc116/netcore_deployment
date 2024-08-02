@@ -42,7 +42,22 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prometheus", "prometheus", "{85AD1F78-BEC8-4975-9FEE-C3D89827167D}"
 	ProjectSection(SolutionItems) = preProject
 		etc\charts\prometheus\value.yaml = etc\charts\prometheus\value.yaml
-		etc\charts\prometheus\values.schema.json = etc\charts\prometheus\values.schema.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana", "grafana", "{69ACB28A-3918-43E4-A9FA-9C2BA68C461F}"
+	ProjectSection(SolutionItems) = preProject
+		etc\charts\grafana\dashboard-app-metric.json = etc\charts\grafana\dashboard-app-metric.json
+		etc\charts\grafana\value-override.yaml = etc\charts\grafana\value-override.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "loki", "loki", "{092E87D9-487A-47B7-8E57-84235C1E182E}"
+	ProjectSection(SolutionItems) = preProject
+		etc\charts\loki\value.yaml = etc\charts\loki\value.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tempo", "tempo", "{4CA35D39-DEA8-4225-99F6-ED5214D707DD}"
+	ProjectSection(SolutionItems) = preProject
+		etc\charts\tempo\values.yaml = etc\charts\tempo\values.yaml
 	EndProjectSection
 EndProject
 Global
@@ -79,6 +94,9 @@ Global
 		{DFF20CCC-7E30-4CBC-83B9-A37BDD4AE52F} = {EE04B307-D362-40C5-8F7B-D8D578B64CEB}
 		{7463CE83-3C6B-4BBB-AF8D-A09F2F1CE020} = {DFF20CCC-7E30-4CBC-83B9-A37BDD4AE52F}
 		{85AD1F78-BEC8-4975-9FEE-C3D89827167D} = {DFF20CCC-7E30-4CBC-83B9-A37BDD4AE52F}
+		{69ACB28A-3918-43E4-A9FA-9C2BA68C461F} = {DFF20CCC-7E30-4CBC-83B9-A37BDD4AE52F}
+		{092E87D9-487A-47B7-8E57-84235C1E182E} = {DFF20CCC-7E30-4CBC-83B9-A37BDD4AE52F}
+		{4CA35D39-DEA8-4225-99F6-ED5214D707DD} = {DFF20CCC-7E30-4CBC-83B9-A37BDD4AE52F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CD6CAC0-CDAF-4EEB-BA5F-3B0E9705458A}

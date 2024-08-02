@@ -1,0 +1,40 @@
+adminUser: admin
+adminPassword: admin
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      uid: prometheus
+      type: prometheus
+      url: http://prometheus-demo-server
+      access: proxy
+      isDefault: true
+    - name: Loki
+      uid: loki
+      type: loki
+      url: http://loki:3100
+      access: proxy
+      isDefault: false
+      jsonData:
+        derivedFields:
+        - datasourceUid: tempo
+          matcherRegex: "trace_id"
+          matcherType: label
+          name: "TraceID"
+          url: "$${__value.raw}"
+          urlDisplayLabel: ""
+    - name: Tempo
+      uid: tempo
+      type: tempo
+      url: http://tempo:3100
+      access: proxy
+      isDefault: false
+      jsonData:
+        tracesToLogsV2:
+          customQuery: false
+          datasourceUid: loki
+          filterBySpanID: true
+          filterByTraceID: true
+

@@ -19,6 +19,8 @@ namespace AppTelemetry
 
             var otelServiceLink = Environment.GetEnvironmentVariable("OTEL_SERVICE_LINK");
 
+            Console.WriteLine($"Telemetry configuration information: ${serviceName}: {otelServiceLink}");  
+
             services.AddOpenTelemetry()
              .ConfigureResource(resource => resource.AddService(
                  serviceName: serviceName,

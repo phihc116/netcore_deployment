@@ -42,11 +42,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prometheus", "prometheus", "{85AD1F78-BEC8-4975-9FEE-C3D89827167D}"
 	ProjectSection(SolutionItems) = preProject
 		etc\charts\prometheus\value.yaml = etc\charts\prometheus\value.yaml
+		etc\charts\prometheus\values-override.yaml = etc\charts\prometheus\values-override.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana", "grafana", "{69ACB28A-3918-43E4-A9FA-9C2BA68C461F}"
 	ProjectSection(SolutionItems) = preProject
-		etc\charts\grafana\dashboard-app-metric.json = etc\charts\grafana\dashboard-app-metric.json
+		etc\charts\grafana\dashboard-app-monitor.json = etc\charts\grafana\dashboard-app-monitor.json
+		etc\charts\grafana\dashboard-log-monitor.json = etc\charts\grafana\dashboard-log-monitor.json
+		etc\charts\grafana\dashborad-k8s-monitor.json = etc\charts\grafana\dashborad-k8s-monitor.json
+		etc\charts\grafana\dashborad-node-monitor.json = etc\charts\grafana\dashborad-node-monitor.json
+		etc\charts\grafana\dashborad-pod-monitor.json = etc\charts\grafana\dashborad-pod-monitor.json
 		etc\charts\grafana\value-override.yaml = etc\charts\grafana\value-override.yaml
 	EndProjectSection
 EndProject
@@ -58,6 +63,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tempo", "tempo", "{4CA35D39-DEA8-4225-99F6-ED5214D707DD}"
 	ProjectSection(SolutionItems) = preProject
 		etc\charts\tempo\values.yaml = etc\charts\tempo\values.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "oncall", "oncall", "{E66C6AE3-AE4A-458C-B663-38B7A2FAAC6C}"
+	ProjectSection(SolutionItems) = preProject
+		etc\charts\oncall\cr.yaml = etc\charts\oncall\cr.yaml
+		etc\charts\oncall\ct.yaml = etc\charts\oncall\ct.yaml
+		etc\charts\oncall\kind.yml = etc\charts\oncall\kind.yml
+		etc\charts\oncall\local_image.yml = etc\charts\oncall\local_image.yml
+		etc\charts\oncall\README.md = etc\charts\oncall\README.md
+		etc\charts\oncall\simple.yml = etc\charts\oncall\simple.yml
 	EndProjectSection
 EndProject
 Global
@@ -97,6 +112,7 @@ Global
 		{69ACB28A-3918-43E4-A9FA-9C2BA68C461F} = {DFF20CCC-7E30-4CBC-83B9-A37BDD4AE52F}
 		{092E87D9-487A-47B7-8E57-84235C1E182E} = {DFF20CCC-7E30-4CBC-83B9-A37BDD4AE52F}
 		{4CA35D39-DEA8-4225-99F6-ED5214D707DD} = {DFF20CCC-7E30-4CBC-83B9-A37BDD4AE52F}
+		{E66C6AE3-AE4A-458C-B663-38B7A2FAAC6C} = {DFF20CCC-7E30-4CBC-83B9-A37BDD4AE52F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CD6CAC0-CDAF-4EEB-BA5F-3B0E9705458A}

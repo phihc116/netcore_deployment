@@ -1,23 +1,27 @@
 services:
   newsfeedapi:
-    image: localhost:5000/newsfeed-api
     build:
       context: .
       dockerfile: src/NewsfeedAPI/Dockerfile
     environment:
        - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector
+       - ASPNETCORE_HTTP_PORTS=8080
     networks:
         - app
+    ports:
+        - "56666:8080"
 
   platformapi:
-    image: localhost:5000/platform-api
     build:
       context: .
       dockerfile: src/PlatformAPI/Dockerfile
     environment:
        - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector
+       - ASPNETCORE_HTTP_PORTS=8080
     networks:
         - app
+    ports:
+        - "56667:8080"
 networks:
   app:
     

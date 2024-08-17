@@ -1,5 +1,5 @@
 adminUser: admin
-adminPassword: admin
+adminPassword: admin123
 
 datasources:
   datasources.yaml:
@@ -11,12 +11,14 @@ datasources:
       url: http://prometheus-demo-server
       access: proxy
       isDefault: true
+      editable: true
     - name: Loki
       uid: loki
       type: loki
       url: http://loki:3100
       access: proxy
       isDefault: false
+      editable: true
       jsonData:
         derivedFields:
         - datasourceUid: tempo
@@ -31,10 +33,35 @@ datasources:
       url: http://tempo:3100
       access: proxy
       isDefault: false
+      editable: true
       jsonData:
         tracesToLogsV2:
           customQuery: false
           datasourceUid: loki
-          filterBySpanID: true
-          filterByTraceID: true
+          filterBySpanID: false
+          filterByTraceID: false
 
+# dashboardProviders:
+#   dashboardproviders.yaml:
+#     apiVersion: 1
+#     providers:
+#     - name: 'default'
+#       orgId: 1
+#       folder: ''
+#       type: file
+#       disableDeletion: false
+#       editable: true
+#       options:
+#         path: /var/lib/grafana/dashboards/default
+
+# dashboards:
+#   default:
+#     # Thêm dashboard từ các file JSON cụ thể
+#     dashboard-app-monitor:
+#       file: ./dashboard-app-monitor.json
+#     dashboard-k8s-monitor:
+#       file: ./dashboard-k8s-monitor.json
+#     dashboard-node-monitor:
+#       file: ./dashboard-node-monitor.json
+#     dashboard-pod-monitor:
+#       file: ./dashboard-pod-monitor.json

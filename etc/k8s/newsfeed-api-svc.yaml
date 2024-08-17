@@ -3,9 +3,15 @@ kind: Service
 metadata:
   name: newsfeed-api-svc
   namespace: app-demo
+  labels:
+    app.kubernetes.io/component: api
+    app.kubernetes.io/name: newsfeed-api
+    app.kubernetes.io/instance: newsfeed-api
+    app.kubernetes.io/version: 1.0.0
 spec:
   selector:
     app: newsfeed-api
+    app.kubernetes.io/name: newsfeed-api
   ports:
   - port: 8080
     targetPort: 8080

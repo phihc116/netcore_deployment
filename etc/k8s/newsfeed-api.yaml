@@ -4,7 +4,10 @@ metadata:
   name: newsfeed-api
   namespace: app-demo
   labels:
-    app.kubernetes.io/component: newsfeed-api
+    app.kubernetes.io/component: api
+    app.kubernetes.io/name: newsfeed-api
+    app.kubernetes.io/instance: newsfeed-api
+    app.kubernetes.io/version: 1.0.0
 spec:
   selector:
     matchLabels:
@@ -13,10 +16,14 @@ spec:
     metadata:
       labels:
         app: newsfeed-api
+        app.kubernetes.io/component: api
+        app.kubernetes.io/name: newsfeed-api
+        app.kubernetes.io/instance: newsfeed-api
+        app.kubernetes.io/version: 1.0.0
     spec:
       containers:
       - name: newsfeed-api
-        image: localhost:5000/newsfeed-api:01082024
+        image: localhost:5000/newsfeed-api:20240817
         resources:
           limits:
             memory: "512Mi"
@@ -28,7 +35,7 @@ spec:
           value: "Test Env"
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
-        - name: OTEL_SERVICE_LINK
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
           value: http://opentelemetry-collector.otel-demo.svc.cluster.local
         - name: OTEL_SERVICE_NAME
           valueFrom:
@@ -36,7 +43,7 @@ spec:
               apiVersion: v1
               fieldPath: metadata.labels['app.kubernetes.io/component']
         - name: OTEL_RESOURCE_ATTRIBUTES
-          value: service.namespace=otel-demo,service.version=1.1.0
+          value: service.namespace=app-demo,service.version=1.1.0,test.author=hcphi
         volumeMounts:
         - name: config-volume
           mountPath: /app/appsettings.Development.json

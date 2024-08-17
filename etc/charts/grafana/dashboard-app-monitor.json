@@ -125,10 +125,14 @@
           "custom": {
             "align": "auto",
             "cellOptions": {
-              "type": "auto"
+              "type": "auto",
+              "wrapText": false
             },
+            "filterable": false,
             "inspect": false
           },
+          "fieldMinMax": false,
+          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -136,15 +140,42 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Average response time"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0.3
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -164,7 +195,13 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Total Requests"
+          }
+        ]
       },
       "pluginVersion": "11.1.0",
       "targets": [
@@ -189,7 +226,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (http_route, http_request_method, method_route) (\r\n  label_join(\r\n    avg_over_time(\r\n      http_server_request_duration_seconds_sum{exported_job=\"$job\", exported_instance=\"$instance\", http_route!=\"\"}[5h]\r\n    ) /\r\n    avg_over_time(\r\n      http_server_request_duration_seconds_count{exported_job=\"$job\", exported_instance=\"$instance\", http_route!=\"\"}[5h]\r\n    ),\r\n    \"method_route\", \" \", \"http_request_method\", \"http_route\"\r\n  )\r\n)",
+          "expr": "sum by (http_route, http_request_method, method_route) (\r\n  label_join(\r\n    avg_over_time(\r\n      http_server_request_duration_seconds_sum{exported_job=\"$job\", exported_instance=\"$instance\", http_route!=\"\"}[$__rate_interval]\r\n    ) /\r\n    avg_over_time(\r\n      http_server_request_duration_seconds_count{exported_job=\"$job\", exported_instance=\"$instance\", http_route!=\"\"}[$__rate_interval]\r\n    ),\r\n    \"method_route\", \" \", \"http_request_method\", \"http_route\"\r\n  )\r\n)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -198,7 +235,7 @@
           "refId": "B"
         }
       ],
-      "title": "Panel Title",
+      "title": "Top Endpoints",
       "transformations": [
         {
           "id": "joinByField",
@@ -2266,13 +2303,13 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "ASP.NET OTEL Metrics from OTEL Collector",
   "uid": "ASP_NET_OTLP_COL_SHARED",
-  "version": 5,
+  "version": 8,
   "weekStart": ""
 }

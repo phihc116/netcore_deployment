@@ -9,12 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAppTelemetry(configureOptions =>
-{
-    configureOptions.ServiceName = "platform-api";
-    configureOptions.ServiceVersion = "v.0.0.1";
-});
-
+builder.ConfigureBuilderDefault();
+ 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,5 +25,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+app.ConfigureDefautApp();
+app.ConfigureMapEndpointDefault();
 
 app.Run();

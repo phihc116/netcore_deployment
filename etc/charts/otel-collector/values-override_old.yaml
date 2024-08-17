@@ -1,19 +1,15 @@
 
-## Configuring with the image  otel/opentelemetry-collector-k8s
+## Configuring with the image  otel/opentelemetry-collector
 mode: "deployment"
 namespaceOverride: "otel-demo"
-
-presets:
-  kubernetesAttributes:
-    enabled: true
 
 config:
   exporters:
     debug: {}
+    prometheus:
+      endpoint: "0.0.0.0:9201"
     otlphttp:
       endpoint: http://loki-gateway.otel-demo.svc.cluster.local/otlp/
-    otlphttp/prometheus:
-      endpoint: http://prometheus-demo-server/api/v1/otlp
     otlp:
       endpoint: tempo:4317
       tls:
@@ -45,17 +41,15 @@ config:
         processors:
         - memory_limiter
         - batch
-        - k8sattributes
         receivers:
         - otlp
       metrics:
         exporters:
         - debug
-        - otlphttp/prometheus
+        - prometheus
         processors:
         - memory_limiter
         - batch
-        - k8sattributes
         receivers:
         - otlp
       traces:
@@ -65,15 +59,14 @@ config:
         processors:
         - memory_limiter
         - batch
-        - k8sattributes
         receivers:
         - otlp
 
 image:
-  repository: "otel/opentelemetry-collector-k8s"
+  repository: "otel/opentelemetry-collector"
 
 command:
-  name: "otelcol-k8s"
+  name: "otelcol"
   extraArgs: []
 
 ports:

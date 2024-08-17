@@ -15,6 +15,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ./src .
 RUN dotnet restore "./PlatformAPI/PlatformAPI.csproj"
+RUN dotnet restore "./AppTelemetry/AppTelemetry.csproj"
+
 COPY ./src .
 WORKDIR "/src/PlatformAPI"
 RUN dotnet build "./PlatformAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build

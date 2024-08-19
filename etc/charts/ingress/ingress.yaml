@@ -3,17 +3,8 @@ kind: Ingress
 metadata:
   name: observability-ingress
   namespace: otel-demo
-  # annotations:
-#   nginx.ingress.kubernetes.io/use-regex: "true"
-#   # nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts:
-    - grafana.herond.local
-    - prometheus.herond.local
-    - oncallexternal.herond.local
-    secretName: grafana-tls
   rules:
   - host: grafana.herond.local
     http:
@@ -35,6 +26,16 @@ spec:
             name: prometheus-demo-server
             port:
               number: 80
+  - host: alertmanager.herond.local
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: prometheus-demo-alertmanager
+            port:
+              number: 9093
   - host: oncallexternal.herond.local
     http:
       paths:
@@ -45,6 +46,3 @@ spec:
             name: helm-testing-oncall-engine-external
             port:
               number: 8080
-
-
-

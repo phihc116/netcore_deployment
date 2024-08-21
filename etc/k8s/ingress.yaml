@@ -16,14 +16,14 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: platform-api-svc
+            name: platform-api
             port:
               number: 8080
       - path: /NewsfeedAPI(/|$)(.*)
         pathType: ImplementationSpecific
         backend:
           service:
-            name: newsfeed-api-svc
+            name: newsfeed-api
             port:
               number: 8080
 

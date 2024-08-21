@@ -26,6 +26,8 @@ public static class ObservabilityRegistration
         observabilityOptions.OltpEndpoint = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT")
                                             ?? "http://localhost";
  
+        Console.WriteLine(observabilityOptions.OltpEndpoint);
+
         builder.Services
             .AddOpenTelemetry()
             .ConfigureResource(
